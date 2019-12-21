@@ -1,4 +1,4 @@
-// 1
+// 1번 문제
 function q1(number1, number2) {
   if (numcheck(number1, number2) === 0) return 0;
   number1 = Math.abs(number1);
@@ -23,7 +23,7 @@ function uclid(number1, number2) {
   swap(number2, number_mod);
 }
 
-//2
+//2번 문제
 function q2() {
   let array_number = Array.from(arguments).sort(function(number1, number2) {
     return number2 - number1;
@@ -33,10 +33,12 @@ function q2() {
     array_number[key] = Math.abs(array_number[key]);
   }
   gcd(array_number);
+
+  console.log(array_number[0]);
 }
 
 function gcd(array_number) {
-  if (array_number.length === 1) return console.log(array_number[0]);
+  if (array_number.length === 1) return 0;
   let number_mod;
   do {
     number_mod = array_number[0] % array_number[1];
@@ -62,4 +64,4 @@ function numcheck() {
 }
 
 q1(70, -35);
-q2(72, 36, 108, -144);
+q2(72, 36, -108, 144, 18);
