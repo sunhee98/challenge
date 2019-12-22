@@ -1,64 +1,66 @@
 // 1번 문제
-function q1(number1, number2) {
-  if (numcheck(number1, number2) === 0) return 0;
+function singleGCD(number1, number2) {
+  if (numberCheck(number1, number2) === 0) {
+    return 0;
+  }
   number1 = Math.abs(number1);
   number2 = Math.abs(number2);
-  swap(number1, number2);
+  [number1, number2] = swap(number1, number2);
+  console.log(uclid(number1, number2));
 }
 
 function swap(number1, number2) {
-  if (number1 < number2) [number1, number2] = [number2, number1];
-  const number_uclid = uclid(number1, number2);
-  if (typeof number_uclid === 'number') console.log(number_uclid);
+  if (number1 < number2) {
+    [number1, number2] = [number2, number1];
+  }
+  return [number1, number2];
 }
 
 function uclid(number1, number2) {
-  const number_mod = number1 % number2;
-  if (number_mod === 0) return number2;
-  swap(number2, number_mod);
+  do {
+    [number1, number2] = [number2, number1 % number2];
+  } while (number2 !== 0);
+  return number1;
 }
 
 //2번 문제
-function q2() {
-  let array_number = Array.from(arguments).sort(function(number1, number2) {
+function multiGCD() {
+  let arrayNumber = Array.from(arguments).sort(function(number1, number2) {
     return number2 - number1;
   });
-  for (let key in array_number) {
-    if (numcheck(array_number[key]) === 0) return 0;
-    array_number[key] = Math.abs(array_number[key]);
+  for (let key in arrayNumber) {
+    if (numberCheck(arrayNumber[key]) === 0) {
+      return 0;
+    }
+    arrayNumber[key] = Math.abs(arrayNumber[key]);
   }
-  gcd(array_number);
-
-  console.log(array_number[0]);
+  gcd(arrayNumber);
+  console.log(arrayNumber[0]);
 }
 
-function gcd(array_number) {
-  if (array_number.length === 1) return 0;
-  let number_mod;
-  do {
-    number_mod = array_number[0] % array_number[1];
-    [array_number[0], array_number[1]] = [array_number[1], number_mod];
-    if (number_mod === 0) {
-      array_number.splice(1, 1);
-      array_number.sort(function(number1, number2) {
-        return number2 - number1;
-      });
-      gcd(array_number);
-    }
-  } while (number_mod !== 0);
+function gcd(arrayNumber) {
+  while (arrayNumber.length !== 1) {
+    do {
+      [arrayNumber[0], arrayNumber[1]] = [arrayNumber[1], arrayNumber[0] % arrayNumber[1]];
+    } while (arrayNumber[1] !== 0);
+    arrayNumber.splice(1, 1);
+    arrayNumber.sort(function(number1, number2) {
+      return number2 - number1;
+    });
+  }
+  return;
 }
 
 // 숫자 검사 함수
-
-function numcheck() {
+function numberCheck() {
   for (let i = 0; i < arguments.length; i++) {
     if (typeof arguments[i] !== 'number' || arguments[i] === 0) {
-      console.log('잘못된 값 입력');
+      console.error('잘못된 값 입력');
       return 0;
     }
   }
   return 1;
 }
 
-q1(270, -135);
-q2(72, 36, -108, 144);
+singleGCD(-72000, -19332);
+multiGCD(-78696, -19332, 3600, 72000);
