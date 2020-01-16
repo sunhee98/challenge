@@ -11,3 +11,7 @@ function gcd(a, b) {
   console.log(a);
 }
 gcd(78696, 19332);
+gcd(1679, 874);
+gcd(3762, 4047);
+gcd(6080, 3876);
+gcd(18, 45);
